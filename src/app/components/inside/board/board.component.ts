@@ -1,6 +1,8 @@
 import { DataService } from './../../../services/data.service'
 import { Component, HostListener, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
+
 
 @Component({
   selector: 'app-board',
@@ -24,6 +26,7 @@ export class BoardComponent implements OnInit {
     private router: Router
   ) {}
 
+
   async ngOnInit() {
     this.boardId = this.route.snapshot.paramMap.get('id')
     if (this.boardId) {
@@ -43,6 +46,24 @@ export class BoardComponent implements OnInit {
       this.handleRealtimeUpdates()
     }
   }
+
+
+
+  drop(event: CdkDragDrop<any[]>) {
+    if (event.previousContainer === event.container) {
+      // Aynı liste içinde sürükle ve bırak işlemi
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // Farklı listelere taşıma işlemi
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  
+    // Burada veritabanınızı güncellemek için ek işlemler gerekebilir
+  }
+  
 
   //
   // BOARD logic
@@ -84,6 +105,7 @@ export class BoardComponent implements OnInit {
     await this.dataService.addListCard(list.id, this.boardId!, this.listCards[list.id].length)
   }
 
+
   editingCard(card: any, edit = false) {
     this.editCard[card.id] = edit
   }
@@ -92,8 +114,8 @@ export class BoardComponent implements OnInit {
     await this.dataService.updateCard(card)
     this.editingCard(card, false)
   }
-
-  async deleteCard(card: any) {
+  
+   async deleteCard(card: any) {
     await this.dataService.deleteCard(card)
   }
 

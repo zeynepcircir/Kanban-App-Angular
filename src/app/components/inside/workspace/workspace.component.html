@@ -1,11 +1,11 @@
-<header class="bg-emerald-600">
+<header class="bg-gray-500">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
       <div
-        class="flex w-full items-center justify-between border-b border-emerald-500 py-6 lg:border-none"
+        class="flex w-full items-center justify-between border-b border-fuchsia-300 py-6 lg:border-none"
       >
         <div class="flex items-center">
           <a routerLink="/workspace">
-            <img class="h-6 w-auto" src="https://supabase.com/docs/supabase-dark.svg" alt="" />
+           <h1 class="text-slate-100" >TRELLO</h1>
           </a>
         </div>
         <div class="ml-10 flex items-center space-x-4">
@@ -14,7 +14,7 @@
   
           <button
             (click)="signOut()"
-            class="inline-block rounded-md border border-transparent bg-white py-1 px-4 text-base font-medium text-emerald-600 hover:bg-emerald-50"
+            class="inline-block rounded-md border border-transparent bg-white py-1 px-4 text-base font-medium text-neutral-600 hover:bg-emerald-50"
           >
             Logout
           </button>
@@ -31,14 +31,14 @@
       <li
         *ngFor="let board of boards"
         [routerLink]="board.boards.id"
-        class="relative h-52 rounded bg-emerald-200 py-4 px-4 text-lg font-semibold hover:cursor-pointer hover:bg-emerald-300"
+        class="relative h-52 rounded bg-red-300 py-4 px-4 text-lg font-semibold hover:cursor-pointer hover:bg-neutral-600"
       >
         {{ board.boards.title }}
       </li>
   
       <li
         (click)="startBoard()"
-        class="relative h-52 rounded bg-emerald-500 py-4 px-4 text-lg font-semibold hover:cursor-pointer"
+        class="relative h-52 rounded bg-red-300 py-4 px-4 text-lg font-semibold hover:cursor-pointer"
       >
         + New board
       </li>
